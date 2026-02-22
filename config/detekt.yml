@@ -1,0 +1,197 @@
+# detekt configuration for werewolf-game
+# buildUponDefaultConfig = true を前提とする（デフォルト設定の上にこのファイルを適用）
+# ktlint がカバーするフォーマット系ルールはここでは設定しない
+
+complexity:
+  # 関数の行数上限（デフォルト60）
+  # PromptBuilder や GameEngine は長くなりがちなので少し緩める
+  LongMethod:
+    active: true
+    threshold: 80
+
+  # ファイルの行数上限（デフォルト300）
+  LongParameterList:
+    active: true
+    functionThreshold: 6 # 関数の引数上限
+    constructorThreshold: 7 # コンストラクタの引数上限（AIPlayerは多め）
+    ignoreDefaultParameters: true
+
+  # 循環的複雑度（デフォルト15）
+  # when 分岐が多い役職処理を考慮して少し緩める
+  CyclomaticComplexMethod:
+    active: true
+    threshold: 20
+
+  # ネストの深さ上限（デフォルト3）
+  NestedBlockDepth:
+    active: true
+    threshold: 4
+
+  # クラス内のメソッド数上限
+  TooManyFunctions:
+    active: true
+    thresholdInFiles: 20
+    thresholdInClasses: 15
+    thresholdInObjects: 15
+    thresholdInInterfaces: 10
+    thresholdInEnums: 5
+    ignorePrivate: false
+    ignoreOverridden: true
+
+naming:
+  # クラス名：アッパーキャメルケース
+  ClassNaming:
+    active: true
+    classPattern: "[A-Z][a-zA-Z0-9]*"
+
+  # 関数名：ローワーキャメルケース
+  FunctionNaming:
+    active: true
+    functionPattern: "([a-z][a-zA-Z0-9]*)|(`.*`)"
+    ignoreAnnotated: ["Composable"]
+
+  # 変数名：ローワーキャメルケース
+  VariableNaming:
+    active: true
+    variablePattern: "[a-z][A-Za-z0-9]*"
+    privateVariablePattern: "(_)?[a-z][A-Za-z0-9]*"
+
+  # 定数名：SCREAMING_SNAKE_CASE
+  ConstantNaming:
+    active: true
+    constantPattern: "[A-Z][_A-Z0-9]*"
+
+  # パッケージ名：すべて小文字
+  PackageNaming:
+    active: true
+    packagePattern: '[a-z]+(\.[a-z][a-z0-9]*)*'
+
+  # 1文字の変数名を禁止（ループ変数 i, j は例外）
+  ForbiddenClassName:
+    active: false
+
+  # 意味のない変数名を警告
+  NoNameShadowing:
+    active: true
+
+potential-bugs:
+  # !! 演算子の使用を警告（NullPointerException のリスク）
+  UnsafeCallOnNullableType:
+    active: true
+    excludes: ["**/test/**"]
+
+  # Nullable型のスマートキャストが壊れるパターン
+  UnreachableCatchBlock:
+    active: true
+
+  # 等値比較に == ではなく === を使うべき場合
+  EqualsAlwaysReturnsTrueOrFalse:
+    active: true
+
+  # suspend 関数内での runBlocking 使用を警告
+  # （GameEngine の runBlocking は main 関数のエントリーポイントのみ許可）
+  GlobalCoroutineUsage:
+    active: true
+
+  # 戻り値を無視している可能性
+  IgnoredReturnValue:
+    active: true
+    restrictToAnnotatedMethods: true
+
+style:
+  # var より val を優先
+  VarCouldBeVal:
+    active: true
+
+  # ワイルドカードインポートを禁止
+  WildcardImport:
+    active: true
+    excludeImports:
+      - "kotlinx.coroutines.*" # coroutines は慣例的にワイルドカードを許可
+
+  # マジックナンバーを禁止（定数として定義すること）
+  MagicNumber:
+    active: true
+    ignoreNumbers:
+      - "-1"
+      - "0"
+      - "1"
+      - "2"
+      - "3" # 議論ラウンド数など小さい値は許容
+    ignorePropertyDeclaration: true
+    ignoreLocalVariableDeclaration: false
+    ignoreConstantDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotation: false
+    ignoreNamedArgument: true # 名前付き引数は許容（可読性が高いため）
+    ignoreEnums: true
+
+  # 不要な else を削除
+  UnnecessaryLet:
+    active: true
+
+  # return 文の省略を推奨（expression body を使う）
+  OptionalUnit:
+    active: true
+
+  # 未使用のプライベート宣言を警告
+  UnusedPrivateMember:
+    active: true
+    allowedNames: "(_|ignored|expected|serialVersionUID)"
+
+  # 不要な括弧を警告
+  UnnecessaryParentheses:
+    active: true
+
+  # 文字列テンプレートで不要な中括弧を警告
+  # 例: "${name}" → "$name"
+  UnnecessaryBackticks:
+    active: true
+
+  # コレクション操作で適切な関数を使う
+  # 例: filter { }.size > 0 → any { }
+  UseAnyOrNoneInsteadOfFind:
+    active: true
+
+  UseIsNullOrEmpty:
+    active: true
+
+  UseCheckOrError:
+    active: true
+
+  UseRequire:
+    active: true
+
+exceptions:
+  # 空の catch ブロックを禁止
+  EmptyCatchBlock:
+    active: true
+    allowedExceptionNameRegex: "_|(ignored|expected)"
+
+  # Exception を直接 throw するのを禁止（具体的な例外クラスを使う）
+  ThrowingExceptionsWithoutMessageOrCause:
+    active: true
+
+  # catch で Exception を丸ごと捕まえるのを警告
+  TooGenericExceptionCaught:
+    active: true
+    exceptionNames:
+      - "ArrayIndexOutOfBoundsException"
+      - "Error"
+      - "Exception"
+      - "IllegalMonitorStateException"
+      - "NullPointerException"
+      - "IndexOutOfBoundsException"
+      - "RuntimeException"
+      - "Throwable"
+    allowedExceptionNameRegex: "_|(ignored|expected)"
+    excludes: ["**/ClaudeClient.kt"] # API通信は汎用例外でリトライ処理を許容
+
+coroutines:
+  # GlobalScope の使用を禁止
+  GlobalCoroutineUsage:
+    active: true
+
+  # suspend 関数の戻り値を無視しない
+  SuspendFunWithFlowReturnType:
+    active: true
