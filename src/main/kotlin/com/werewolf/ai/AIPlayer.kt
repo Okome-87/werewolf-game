@@ -66,6 +66,11 @@ class AIPlayer(
         )
     }
 
+    fun notifyExecution(round: Int, executedName: String, isWerewolf: Boolean) {
+        strategy.recordExecution(round, executedName, isWerewolf)
+            ?.let { myImportantActions.add(it) }
+    }
+
     suspend fun nightAction(
         situation: GameSituation,
         alivePlayers: List<Pair<String, String>>,

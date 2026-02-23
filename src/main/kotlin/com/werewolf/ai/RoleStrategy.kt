@@ -18,4 +18,6 @@ interface RoleStrategy {
         targetId: String,
         targetName: String
     ): NightRecord
+
+    fun recordExecution(round: Int, executedName: String, isWerewolf: Boolean): String? = null
 }

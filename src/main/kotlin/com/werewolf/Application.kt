@@ -203,6 +203,11 @@ class GameEngine(
         executed.isAlive = false
         println("\n投票結果：${executed.name} が処刑されました（役職：${executed.role.displayName()}）")
         addChat("システム", "${executed.name}が処刑されました")
+
+        val isWerewolf = executed.role == Role.WEREWOLF
+        aiPlayers.values
+            .filter { players.first { p -> p.id == it.character.id }.isAlive }
+            .forEach { it.notifyExecution(round, executed.name, isWerewolf) }
     }
 
     private fun checkWinner(): String? {

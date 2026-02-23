@@ -12,4 +12,9 @@ class MediumStrategy : RoleStrategy {
         pendingReport = "${targetName}の霊を見ました。結果を今日の議論でCOしてください",
         markChecked = true
     )
+
+    override fun recordExecution(round: Int, executedName: String, isWerewolf: Boolean): String {
+        val result = if (isWerewolf) "人狼" else "村人"
+        return "${round}日目：${executedName}が処刑された → 霊能結果【${result}】（昼の議論でCOすること）"
+    }
 }
