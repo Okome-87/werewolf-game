@@ -14,7 +14,7 @@ class MediumStrategy : RoleStrategy {
     )
 
     override fun recordExecution(round: Int, executedName: String, isWerewolf: Boolean): String {
-        val result = if (isWerewolf) "人狼" else "村人"
+        val result = if (isWerewolf) "黒" else "白"
         return "${round}日目：${executedName}が処刑された → 霊能結果【${result}】（昼の議論でCOすること）"
     }
 }
