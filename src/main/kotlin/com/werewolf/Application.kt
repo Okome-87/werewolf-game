@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 
 class GameEngine(
     private val humanPlayerName: String,
-    private val aiCharacters: List<AICharacter>,
+    private val characterRepository: CharacterRepository,
     private val claudeClient: ClaudeClient
 ) {
     private lateinit var players: MutableList<Player>
@@ -18,6 +18,8 @@ class GameEngine(
     private var round = 1
 
     fun setup() {
+        val aiCharacters = characterRepository.loadAll().take(8)
+
         // 9人構成：村人3・占い師1・霊能者1・騎士1・人狼2・狂人1
         val roles = mutableListOf(
             Role.WEREWOLF, Role.WEREWOLF, Role.LUNATIC,   // 人狼陣営
@@ -284,10 +286,9 @@ fun main() = runBlocking {
         print("あなたの名前を入力してください > ")
         val humanName = readLine()?.trim() ?: "プレイヤー"
 
-        val characters = JsonCharacterRepository().loadAll().take(8)
         val engine = GameEngine(
             humanPlayerName = humanName,
-            aiCharacters = characters,
+            characterRepository = JsonCharacterRepository(),
             claudeClient = claudeClient
         )
 
