@@ -66,8 +66,8 @@ class AIPlayer(
         )
     }
 
-    fun notifyExecution(round: Int, executedName: String, isWerewolf: Boolean) {
-        strategy.recordExecution(round, executedName, isWerewolf)
+    fun notifyExecution(round: Int, executedName: String, mediumResult: MediumResult) {
+        strategy.recordExecution(round, executedName, mediumResult)
             ?.let { myImportantActions.add(it) }
     }
 

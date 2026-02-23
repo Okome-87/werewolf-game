@@ -1,12 +1,17 @@
 package com.werewolf.model
 
-enum class Role {
-    VILLAGER,  // 村人
-    WEREWOLF,  // 人狼
-    SEER,      // 占い師
-    KNIGHT,    // 騎士
-    MEDIUM,    // 霊能者（処刑されたプレイヤーの役職がわかる）
-    LUNATIC    // 狂人（人狼陣営だが人狼を知らない。村人のふりをする）
+enum class MediumResult(val displayName: String) {
+    WHITE("白"),
+    BLACK("黒"),
+}
+
+enum class Role(val mediumResult: MediumResult) {
+    VILLAGER(MediumResult.WHITE),
+    WEREWOLF(MediumResult.BLACK),
+    SEER    (MediumResult.WHITE),
+    KNIGHT  (MediumResult.WHITE),
+    MEDIUM  (MediumResult.WHITE),
+    LUNATIC (MediumResult.WHITE),
 }
 
 enum class GamePhase {

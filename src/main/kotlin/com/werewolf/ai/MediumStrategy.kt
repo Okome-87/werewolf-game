@@ -1,5 +1,7 @@
 package com.werewolf.ai
 
+import com.werewolf.model.MediumResult
+
 class MediumStrategy : RoleStrategy {
     override fun buildNightSchema(
         alivePlayers: List<Pair<String, String>>,
@@ -13,8 +15,7 @@ class MediumStrategy : RoleStrategy {
         markChecked = true
     )
 
-    override fun recordExecution(round: Int, executedName: String, isWerewolf: Boolean): String {
-        val result = if (isWerewolf) "黒" else "白"
-        return "${round}日目：${executedName}が処刑された → 霊能結果【${result}】（昼の議論でCOすること）"
+    override fun recordExecution(round: Int, executedName: String, mediumResult: MediumResult): String {
+        return "${round}日目：${executedName}が処刑された → 霊能結果【${mediumResult.displayName}】（昼の議論でCOすること）"
     }
 }
