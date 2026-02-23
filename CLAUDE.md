@@ -42,3 +42,4 @@ src/main/kotlin/com/werewolf/
 - ゲームルール → @.claude/rules/game-rules.md
 - 実装詳細 → @.claude/rules/implementation.md
 - コード規約 → @.claude/rules/kotlin-conventions.md
+- github運用ルール → @.claude/rules/github-workflow.md
