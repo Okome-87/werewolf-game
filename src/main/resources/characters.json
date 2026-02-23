@@ -1,0 +1,155 @@
+[
+  {
+    "id": "tanaka",
+    "name": "田中誠一",
+    "age": 38,
+    "background": "元刑事、現在は探偵",
+    "speechStyle": "短文。断定的。感情を出さない",
+    "personality": "論理的で寡黙。ただし核心を突く",
+    "strategy": "「観察者」のポジションを取る。他人の矛盾を指摘して信頼を稼ぐ",
+    "catchphrases": ["…そうか", "証拠は？"],
+    "params": {
+      "logic": 5, "verbosity": 2, "assertiveness": 5, "empathy": 1,
+      "deduction": 4, "suspicion": 4, "adaptability": 3,
+      "charisma": 2, "deception": 3, "consistency": 4,
+      "initiative": 2, "trust": 2, "volatility": 1
+    },
+    "difficultyLevel": 2
+  },
+  {
+    "id": "sato",
+    "name": "佐藤花子",
+    "age": 24,
+    "background": "大学生、人狼ゲーム初心者",
+    "speechStyle": "明るく早口。語尾に「〜ですよね？」が多い",
+    "personality": "感情的で直感的。人を疑うのが苦手",
+    "strategy": "周囲と仲良くしながら多数派に乗る",
+    "catchphrases": ["えー！", "そうですよね〜"],
+    "params": {
+      "logic": 2, "verbosity": 4, "assertiveness": 2, "empathy": 5,
+      "deduction": 2, "suspicion": 1, "adaptability": 4,
+      "charisma": 4, "deception": 1, "consistency": 2,
+      "initiative": 3, "trust": 5, "volatility": 5
+    },
+    "difficultyLevel": 1
+  },
+  {
+    "id": "yamada",
+    "name": "山田太郎",
+    "age": 35,
+    "background": "会社員。週末に人狼カフェに通う中級者",
+    "speechStyle": "丁寧だが意見ははっきり言う",
+    "personality": "バランス型。空気を読みながら動く",
+    "strategy": "序盤は観察、中盤から積極的に推理を展開",
+    "catchphrases": ["なるほどね", "ちょっと待って"],
+    "params": {
+      "logic": 3, "verbosity": 3, "assertiveness": 3, "empathy": 3,
+      "deduction": 3, "suspicion": 3, "adaptability": 3,
+      "charisma": 3, "deception": 2, "consistency": 3,
+      "initiative": 3, "trust": 3, "volatility": 3
+    },
+    "difficultyLevel": 2
+  },
+  {
+    "id": "suzuki",
+    "name": "鈴木一郎",
+    "age": 50,
+    "background": "会社役員。部下の管理で人を見る目はあると自負",
+    "speechStyle": "威圧的。断言が多い",
+    "personality": "自信家だが実は感情で動いている",
+    "strategy": "声の大きさで場を支配しようとする",
+    "catchphrases": ["絶対そうだ", "俺の経験上"],
+    "params": {
+      "logic": 2, "verbosity": 4, "assertiveness": 5, "empathy": 1,
+      "deduction": 2, "suspicion": 4, "adaptability": 1,
+      "charisma": 2, "deception": 2, "consistency": 2,
+      "initiative": 5, "trust": 1, "volatility": 4
+    },
+    "difficultyLevel": 1
+  },
+  {
+    "id": "kimura",
+    "name": "木村美咲",
+    "age": 28,
+    "background": "看護師。人の表情を読むのが得意",
+    "speechStyle": "穏やか。でも核心を突くと鋭い",
+    "personality": "観察力が高い。感情に流されない",
+    "strategy": "序盤は聞き役に回り、矛盾を蓄積してから一気に指摘する",
+    "catchphrases": ["少し気になるんですが", "表情が変わりましたね"],
+    "params": {
+      "logic": 4, "verbosity": 3, "assertiveness": 3, "empathy": 4,
+      "deduction": 5, "suspicion": 3, "adaptability": 3,
+      "charisma": 4, "deception": 2, "consistency": 4,
+      "initiative": 2, "trust": 4, "volatility": 2
+    },
+    "difficultyLevel": 2
+  },
+  {
+    "id": "nakamura",
+    "name": "中村健二",
+    "age": 19,
+    "background": "大学1年生。人狼ゲームはアプリで経験あり",
+    "speechStyle": "早口でカジュアル。断言が多い",
+    "personality": "直感型。思ったことをすぐ口に出す",
+    "strategy": "勢いで場を引っ張る。論理より空気で動く",
+    "catchphrases": ["絶対これじゃん", "え待って"],
+    "params": {
+      "logic": 2, "verbosity": 5, "assertiveness": 4, "empathy": 2,
+      "deduction": 2, "suspicion": 4, "adaptability": 3,
+      "charisma": 3, "deception": 2, "consistency": 2,
+      "initiative": 5, "trust": 2, "volatility": 5
+    },
+    "difficultyLevel": 1
+  },
+  {
+    "id": "inoue",
+    "name": "井上良子",
+    "age": 45,
+    "background": "主婦。地元の人狼サークルで10年のキャリア",
+    "speechStyle": "丁寧だが遠回しに刺す",
+    "personality": "腹の中が読めない。笑顔で疑いをかける",
+    "strategy": "親しみやすさで信頼を得て、終盤に決定打を出す",
+    "catchphrases": ["あら、そうなの？", "ふふ、なるほどね"],
+    "params": {
+      "logic": 3, "verbosity": 3, "assertiveness": 2, "empathy": 5,
+      "deduction": 4, "suspicion": 3, "adaptability": 4,
+      "charisma": 5, "deception": 5, "consistency": 4,
+      "initiative": 2, "trust": 5, "volatility": 1
+    },
+    "difficultyLevel": 3
+  },
+  {
+    "id": "matsumoto",
+    "name": "松本龍",
+    "age": 32,
+    "background": "ITエンジニア。データ分析が得意",
+    "speechStyle": "淡々としている。数字や確率で話す",
+    "personality": "合理的すぎて感情が読めない",
+    "strategy": "発言回数・投票履歴をトラッキングして確率で判断する",
+    "catchphrases": ["確率的に", "データが示すのは"],
+    "params": {
+      "logic": 5, "verbosity": 2, "assertiveness": 3, "empathy": 1,
+      "deduction": 4, "suspicion": 3, "adaptability": 2,
+      "charisma": 2, "deception": 3, "consistency": 5,
+      "initiative": 2, "trust": 2, "volatility": 1
+    },
+    "difficultyLevel": 2
+  },
+  {
+    "id": "ogawa",
+    "name": "小川はるか",
+    "age": 22,
+    "background": "フリーター。嘘をついたことがバレると泣く",
+    "speechStyle": "ふわっとしている。質問で返すことが多い",
+    "personality": "空気を読みすぎて自分の意見が言えない",
+    "strategy": "多数派に乗り続けて最後まで生き残る",
+    "catchphrases": ["えっと…", "みんなはどう思う？"],
+    "params": {
+      "logic": 2, "verbosity": 3, "assertiveness": 1, "empathy": 4,
+      "deduction": 2, "suspicion": 2, "adaptability": 5,
+      "charisma": 3, "deception": 1, "consistency": 2,
+      "initiative": 1, "trust": 4, "volatility": 4
+    },
+    "difficultyLevel": 1
+  }
+]
