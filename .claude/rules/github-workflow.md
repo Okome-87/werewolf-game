@@ -13,12 +13,13 @@ main
 
 ### マージの流れ
 
-- 小さい改修：`issue` → `develop` → `main`
-- 大きい改修：`issue` → `base` → `develop` → `main`
+- 小さい改修：`issue-xxx` → `develop` → `main`
+- 大きい改修：`issue-xxx` → `base-xxx` → `develop` → `main`
 
 ### ブランチ作成
 
-作業開始時は必ず `develop` から切ること。
+作業開始時は指示されたブランチがあればそこから切ること。
+特に指示がない場合はdevelopから切ること。
 
 ```bash
 git checkout develop
@@ -99,10 +100,11 @@ fixes #XX"
 ```
 
 ---
+## Claude Codeが使用するghコマンド一覧
 
-## 禁止事項
-
-- `gh pr merge` の実行（マージは必ず人間がGitHub上で行う）
-- `gh repo delete` の実行
-- Issueなしでのブランチ作成・PR作成
-- `main` / `develop` への直接コミット
+gh issue create    # Issue作成
+gh issue list      # Issue一覧確認
+gh issue view {番号}  # Issue詳細確認
+gh pr create       # PR作成
+gh pr list         # PR一覧確認
+gh pr view {番号}  # PR詳細確認
