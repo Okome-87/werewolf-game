@@ -7,9 +7,10 @@ class AIPlayer(
     val role: Role,
     private val client: ClaudeClient
 ) {
+    private val strategy = RoleStrategyFactory.create(role)
     private val checkedIds = mutableListOf<String>()
     private var pendingReport: String? = null
-    private val myImportantActions = mutableListOf<String>()  // 追加：自分の重要行動の記録
+    private val myImportantActions = mutableListOf<String>()
 
     private fun buildPrompt(situation: GameSituation, schema: String): Pair<String, String> {
         val system = PromptBuilder.buildSystemPrompt(character, role.name)
@@ -68,46 +69,23 @@ class AIPlayer(
     suspend fun nightAction(
         situation: GameSituation,
         alivePlayers: List<Pair<String, String>>,
-        isFirstNight: Boolean = false  // 追加
+        isFirstNight: Boolean = false
     ): String? {
         if (isFirstNight) return null
-        val validTargets = alivePlayers
-            .map { it.first }
-            .filter { it != character.id }
 
-        val schema = when (role) {
-            Role.WEREWOLF -> OutputSchema.nightTarget(alivePlayers, character.id)
-            Role.SEER     -> OutputSchema.nightTarget(alivePlayers, character.id, checkedIds)
-            Role.KNIGHT   -> OutputSchema.nightTarget(alivePlayers, character.id)
-            Role.MEDIUM   -> OutputSchema.nightTarget(alivePlayers,character.id)
-            else -> return null
-        }
+        val schema = strategy.buildNightSchema(alivePlayers, character.id, checkedIds)
+            ?: return null
 
+        val validTargets = alivePlayers.map { it.first }.filter { it != character.id }
         val (system, user) = buildPrompt(situation, schema)
         val raw = client.generate(system, user)
         val targetId = OutputParser.parseNightTarget(raw, validTargets)
-        if (role == Role.SEER) checkedIds.add(targetId)
+        val targetName = alivePlayers.find { it.first == targetId }?.second ?: targetId
 
-        if (role == Role.SEER) {
-            checkedIds.add(targetId)
-            val targetName = alivePlayers.find { it.first == targetId }?.second ?: targetId
-            // 占い結果を翌日の議論のために記録
-            myImportantActions.add("${situation.round}日目の夜：${targetName}を占った（結果は昼の議論でCOすること）")
-            pendingReport = "${targetName}を占いました。結果を今日の議論でCOしてください"
-        }
-
-        if (role == Role.MEDIUM) {
-            checkedIds.add(targetId)
-            val targetName = alivePlayers.find { it.first == targetId }?.second ?: targetId
-            // 霊能結果を翌日の議論のために記録
-            myImportantActions.add("${situation.round}日目の夜：${targetName}の霊を見ました（結果は昼の議論でCOすること）")
-            pendingReport = "${targetName}の霊を見ました。結果を今日の議論でCOしてください"
-        }
-
-        if (role == Role.KNIGHT) {
-            val targetName = alivePlayers.find { it.first == targetId }?.second ?: targetId
-            myImportantActions.add("${situation.round}日目の夜：${targetName}を護衛した")
-        }
+        val record = strategy.recordNightAction(situation.round, targetId, targetName)
+        record.importantAction?.let { myImportantActions.add(it) }
+        if (record.markChecked) checkedIds.add(targetId)
+        record.pendingReport?.let { pendingReport = it }
 
         return targetId
     }
