@@ -201,8 +201,17 @@ class GameEngine(
         val executedId = votes.maxByOrNull { it.value }!!.key
         val executed = players.first { it.id == executedId }
         executed.isAlive = false
-        println("\n投票結果：${executed.name} が処刑されました（役職：${executed.role.displayName()}）")
+        println("\n投票結果：${executed.name} が処刑されました")
         addChat("システム", "${executed.name}が処刑されました")
+
+        val humanMedium = players.firstOrNull { it.isHuman && it.isAlive && it.role == Role.MEDIUM }
+        if (humanMedium != null) {
+            println("【霊能結果】${executed.name} は【${executed.role.mediumResult.displayName}】でした")
+        }
+
+        aiPlayers.values
+            .filter { players.first { p -> p.id == it.character.id }.isAlive }
+            .forEach { it.notifyExecution(round, executed.name, executed.role.mediumResult) }
     }
 
     private fun checkWinner(): String? {

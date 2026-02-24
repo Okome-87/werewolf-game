@@ -1,5 +1,7 @@
 package com.werewolf.ai
 
+import com.werewolf.model.MediumResult
+
 data class NightRecord(
     val importantAction: String? = null,
     val pendingReport: String? = null,
@@ -18,4 +20,6 @@ interface RoleStrategy {
         targetId: String,
         targetName: String
     ): NightRecord
+
+    fun recordExecution(round: Int, executedName: String, mediumResult: MediumResult): String? = null
 }

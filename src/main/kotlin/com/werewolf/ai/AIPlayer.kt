@@ -66,6 +66,11 @@ class AIPlayer(
         )
     }
 
+    fun notifyExecution(round: Int, executedName: String, mediumResult: MediumResult) {
+        strategy.recordExecution(round, executedName, mediumResult)
+            ?.let { myImportantActions.add(it) }
+    }
+
     suspend fun nightAction(
         situation: GameSituation,
         alivePlayers: List<Pair<String, String>>,
